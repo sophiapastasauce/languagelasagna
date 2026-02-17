@@ -1,37 +1,48 @@
 # Language Lasagna
 
-## Description
-Language Lasagna is an innovative vocal language learning platform designed to enhance communication skills through interactive voice recognition. It focuses on pronunciation, vocabulary building, and real-time progress tracking, offering a unique approach to mastering new languages.
+Welcome to Language Lasagna!
 
-## Features
-- **Voice Recognition**: Engage in conversations with our advanced voice recognition technology.
-- **Pronunciation Feedback**: Receive instant feedback on your pronunciation to improve accuracy.
-- **Vocabulary Building**: Expand your vocabulary through tailored exercises and quizzes.
-- **Progress Tracking**: Monitor your learning progress and achievements over time.
+## Documentation for the Vocal Language Learning Website
 
-## Getting Started
-1. Clone the repository: `git clone https://github.com/sophiapastasauce/languagelasagna.git`
-2. Navigate to the project directory: `cd languagelasagna`
-3. Install dependencies: `npm install`
-4. Start the application: `npm start`
+### Features
+- Audio-driven language learning experience.
+- Interactive lessons focusing on pronunciation and vocabulary.
+- Vocabulary exercises and quizzes.
+- Progress tracking and performance feedback.
+- Option to choose different dialects of the languages.
 
-## Available Languages and Skill Levels
-- **Languages**: English, Spanish, French, Mandarin, German
-- **Skill Levels**: Beginner, Intermediate, Advanced
+### Getting Started
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/sophiapastasauce/languagelasagna.git
+   cd languagelasagna
+   ```
+2. Install the necessary dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the application:
+   ```bash
+   npm start
+   ```
+4. Open your browser and navigate to `http://localhost:3000` to begin using the website.
 
-## Browser Requirements
-- Google Chrome
-- Mozilla Firefox
-- Safari
-- Microsoft Edge  
-*Note: Ensure your browser supports the Web Speech API.*
+### Language Options
+- English
+- Spanish
+- French
+- German
+- Mandarin
 
-## Usage Examples
-- Practice pronunciation by repeating phrases after the application prompts.
-- Engage in simulated conversations to enhance language fluency.
-- Track learned vocabulary and test your knowledge through quizzes.
+### Browser Requirements
+- Google Chrome (latest version)
+- Mozilla Firefox (latest version)
+- Safari (latest version)
+- Microsoft Edge (latest version)
 
-## Future Enhancements
-- Integration of AI tutors for personalized learning experiences.
-- Expansion of available languages and dialects.
-- Enhanced analytics for user progress and performance insights.
+### Usage Instructions
+- Upon accessing the website, select your language and desired learning level.
+- Follow the on-screen instructions to complete interactive lessons.
+- Utilize the progress tracker to monitor your performance.
+
+Happy Learning!
