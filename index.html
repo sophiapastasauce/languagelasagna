@@ -3,38 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vocal Language Learning</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Language Lasagna</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            animation: backgroundAnimation 15s infinite alternate;
+        }
+        @keyframes backgroundAnimation {
+            0% { background-color: #ff7e5f; }
+            100% { background-color: #feb47b; }
+        }
+        .container {
+            text-align: center;
+            color: white;
+            padding: 20px;
+        }
+        .language-selection, .skill-level {
+            margin: 20px;
+        }
+        .mic-button {
+            border: none;
+            border-radius: 50%;
+            background: #fff;
+            padding: 20px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Welcome to Vocal Language Learning</h1>
-        <nav>
-            <ul>
-                <li><a href="#lessons">Lessons</a></li>
-                <li><a href="#interactive">Interactive Features</a></li>
-                <li><a href="#resources">Resources</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <section id="lessons">
-            <h2>Lessons</h2>
-            <p>Explore various vocal language learning lessons designed by experts.</p>
-        </section>
-        <section id="interactive">
-            <h2>Interactive Features</h2>
-            <p>Engage with our interactive exercises to improve your speaking skills.</p>
-            <button onclick="startQuiz()">Start Quiz</button>
-        </section>
-        <section id="resources">
-            <h2>Resources</h2>
-            <p>Find additional resources to enhance your language learning journey.</p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2026 Vocal Language Learning. All rights reserved.</p>
-    </footer>
-    <script src="script.js"></script>
+    <div class="container">
+        <h1>Welcome to Language Lasagna!</h1>
+        <div class="language-selection">
+            <label for="languages">Select your language:</label>
+            <select id="languages">
+                <option value="arabic">Arabic</option>
+                <option value="mandarin">Mandarin</option>
+                <option value="russian">Russian</option>
+            </select>
+        </div>
+        <div class="skill-level">
+            <label for="skill">Select your skill level:</label>
+            <select id="skill">
+                <option value="beginner">Beginner</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
+            </select>
+        </div>
+        <div>
+            <button class="mic-button">🎤</button>
+        </div>
+    </div>
 </body>
 </html>
