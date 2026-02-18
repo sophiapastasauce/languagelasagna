@@ -1,121 +1,575 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🍝 Language Lasagna - Learn Languages with AI!</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="background-animation">
-        <div class="floating-bubble bubble-1"></div>
-        <div class="floating-bubble bubble-2"></div>
-        <div class="floating-bubble bubble-3"></div>
-        <div class="floating-bubble bubble-4"></div>
-        <div class="floating-bubble bubble-5"></div>
-    </div>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Language Lasagna</title>
+  <style>
+    :root {
+      --bg: #0b0f14;
+      --card: #121a23;
+      --text: #e7eef8;
+      --muted: #9fb0c5;
+      --accent: #7c5cff;
+      --accent2: #27d1b3;
+      --danger: #ff4d4d;
+      --border: rgba(255,255,255,.10);
+      --shadow: 0 12px 40px rgba(0,0,0,.35);
+      --radius: 16px;
+      --pad: 16px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
 
+    body {
+      margin: 0;
+      background: radial-gradient(1200px 700px at 10% -10%, rgba(124,92,255,.35), transparent 55%),
+                  radial-gradient(900px 600px at 110% 10%, rgba(39,209,179,.25), transparent 55%),
+                  var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+
+    .wrap {
+      width: min(980px, 100%);
+      display: grid;
+      gap: 16px;
+    }
+
+    header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    h1 { margin: 0; font-size: 34px; letter-spacing: .2px; }
+    .tagline { margin: 0; color: var(--muted); }
+
+    .grid {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 860px) {
+      .grid { grid-template-columns: 360px 1fr; align-items: start; }
+    }
+
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+      padding: var(--pad);
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 0 0 10px;
+      font-size: 14px;
+      letter-spacing: .18em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .btnrow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    button.pill {
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 999px;
+      font-size: 14px;
+      transition: transform .06s ease, background .15s ease, border-color .15s ease;
+      user-select: none;
+    }
+    button.pill:hover { background: rgba(255,255,255,.06); }
+    button.pill:active { transform: translateY(1px); }
+
+    button.pill.active {
+      border-color: rgba(124,92,255,.7);
+      background: rgba(124,92,255,.18);
+      box-shadow: 0 0 0 3px rgba(124,92,255,.12) inset;
+    }
+
+    .stats {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    .stat {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 10px;
+      background: rgba(255,255,255,.03);
+    }
+    .stat .k { color: var(--muted); font-size: 12px; }
+    .stat .v { font-size: 18px; margin-top: 4px; }
+
+    .welcome {
+      margin: 10px 0 0;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .chat {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 12px;
+      min-height: 520px;
+    }
+
+    .chathead {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      font-size: 13px;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      padding: 8px 10px;
+      border-radius: 999px;
+    }
+
+    .danger {
+      border-color: rgba(255,77,77,.4) !important;
+      color: #ffb3b3 !important;
+    }
+
+    .messages {
+      border: 1px solid var(--border);
+      background: rgba(0,0,0,.22);
+      border-radius: 16px;
+      padding: 12px;
+      overflow: auto;
+    }
+
+    .msg {
+      max-width: 78ch;
+      padding: 10px 12px;
+      border-radius: 14px;
+      margin: 10px 0;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      white-space: pre-wrap;
+      line-height: 1.35;
+    }
+    .msg.me { margin-left: auto; border-color: rgba(39,209,179,.35); background: rgba(39,209,179,.12); }
+    .msg.ai { margin-right: auto; border-color: rgba(124,92,255,.35); background: rgba(124,92,255,.10); }
+    .meta { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+
+    .composer {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 10px;
+      align-items: center;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      color: var(--text);
+      border-radius: 12px;
+      padding: 12px 12px;
+      font-size: 15px;
+      outline: none;
+    }
+
+    .primary {
+      border-color: rgba(124,92,255,.55);
+      background: rgba(124,92,255,.22);
+    }
+    .primary:hover { background: rgba(124,92,255,.28); }
+
+    .ghost {
+      background: rgba(255,255,255,.03);
+    }
+
+    .footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 6px;
+    }
+    a { color: var(--accent2); }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
     <header>
-        <div class="header-content">
-            <h1>🍝 Language Lasagna 🍝</h1>
-            <p>Learn Languages With Your AI Friend! 🤖✨</p>
-        </div>
+      <div>
+        <h1>Language Lasagna</h1>
+        <p class="tagline">Learn Languages With Your AI Friend! ✨</p>
+      </div>
+      <div class="badge" id="statusBadge">Pick a language + level to start</div>
     </header>
 
-    <main>
-        <!-- Language Selection -->
-        <section class="language-section card">
-            <h2>🌐 Pick Your Language</h2>
-            <div class="language-grid">
-                <button class="lang-btn" onclick="selectLanguage('english')">
-                    <span class="flag">🇺🇸</span>
-                    <span>English</span>
-                </button>
-                <button class="lang-btn" onclick="selectLanguage('spanish')">
-                    <span class="flag">🇪🇸</span>
-                    <span>Spanish</span>
-                </button>
-                <button class="lang-btn" onclick="selectLanguage('french')">
-                    <span class="flag">🇫🇷</span>
-                    <span>French</span>
-                </button>
-                <button class="lang-btn" onclick="selectLanguage('mandarin')">
-                    <span class="flag">🇨🇳</span>
-                    <span>Mandarin</span>
-                </button>
-                <button class="lang-btn" onclick="selectLanguage('arabic')">
-                    <span class="flag">🇸🇦</span>
-                    <span>Arabic</span>
-                </button>
-                <button class="lang-btn" onclick="selectLanguage('russian')">
-                    <span class="flag">🇷🇺</span>
-                    <span>Russian</span>
-                </button>
-            </div>
-        </section>
+    <div class="grid">
+      <!-- LEFT: controls -->
+      <section class="card">
+        <p class="section-title">Pick Your Language</p>
+        <div class="btnrow" id="languageRow">
+          <button class="pill" data-language="English">English</button>
+          <button class="pill" data-language="Spanish">Spanish</button>
+          <button class="pill" data-language="French">French</button>
+          <button class="pill" data-language="Mandarin">Mandarin</button>
+          <button class="pill" data-language="Arabic">Arabic</button>
+          <button class="pill" data-language="Russian">Russian</button>
+        </div>
 
-        <!-- Skill Level Selection -->
-        <section class="level-section card">
-            <h2>📚 Choose Your Level</h2>
-            <div class="level-grid">
-                <button class="level-btn beginner-btn" onclick="selectLevel('beginner')">
-                    🌱 Beginner
-                </button>
-                <button class="level-btn intermediate-btn" onclick="selectLevel('intermediate')">
-                    🌿 Intermediate
-                </button>
-                <button class="level-btn advanced-btn" onclick="selectLevel('advanced')">
-                    🌳 Advanced
-                </button>
-            </div>
-        </section>
+        <div style="height:14px"></div>
 
-        <!-- AI Chat Section -->
-        <section class="chat-section card">
-            <div class="ai-avatar">
-                <div class="avatar-circle">🤖</div>
-                <span class="status-dot"></span>
-            </div>
-            
-            <h2 id="welcomeMessage">Welcome! 👋 Choose a language to start chatting!</h2>
-            
-            <div class="conversation-container" id="chatBox">
-                <!-- Messages will appear here -->
-            </div>
+        <p class="section-title">Choose Your Level</p>
+        <div class="btnrow" id="levelRow">
+          <button class="pill" data-level="Beginner">Beginner</button>
+          <button class="pill" data-level="Intermediate">Intermediate</button>
+          <button class="pill" data-level="Advanced">Advanced</button>
+        </div>
 
-            <!-- Voice Controls -->
-            <div class="voice-controls">
-                <button class="microphone-btn" id="micBtn" onclick="toggleMicrophone()">
-                    <span class="mic-icon">🎤</span>
-                </button>
-                <p class="listening-status" id="listeningStatus"></p>
-            </div>
+        <p class="welcome" id="welcomeText">Welcome! Choose a language to start chatting!</p>
 
-            <!-- Stats -->
-            <div class="stats-container">
-                <div class="stat">
-                    <span class="stat-icon">✨</span>
-                    <span id="streakCount">0</span>
-                    <span class="stat-label">Streak</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-icon">📝</span>
-                    <span id="wordCount">0</span>
-                    <span class="stat-label">Words Learned</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-icon">⭐</span>
-                    <span id="scoreCount">0</span>
-                    <span class="stat-label">Points</span>
-                </div>
-            </div>
-        </section>
-    </main>
+        <div class="stats">
+          <div class="stat">
+            <div class="k">✨ Streak</div>
+            <div class="v" id="streakVal">0</div>
+          </div>
+          <div class="stat">
+            <div class="k">📚 Words Learned</div>
+            <div class="v" id="wordsVal">0</div>
+          </div>
+          <div class="stat">
+            <div class="k">⭐ Points</div>
+            <div class="v" id="pointsVal">0</div>
+          </div>
+        </div>
 
-    <footer>
-        <p>Made with ❤️ for language lovers • 🍝 Language Lasagna 2026</p>
-    </footer>
+        <div style="height:12px"></div>
+        <div class="btnrow">
+          <button class="pill ghost danger" id="resetBtn" title="Clears chat + stats">Reset</button>
+        </div>
+      </section>
 
-    <script src="script.js"></script>
+      <!-- RIGHT: chat -->
+      <section class="card chat">
+        <div class="chathead">
+          <div class="badge" id="modeBadge">No mode selected</div>
+          <div class="badge" id="hintBadge">Tip: press Enter to send</div>
+        </div>
+
+        <div class="messages" id="messages" aria-live="polite"></div>
+
+        <div class="composer">
+          <input id="input" type="text" placeholder="Type your message…" autocomplete="off" />
+          <button class="pill primary" id="sendBtn">Send</button>
+          <button class="pill ghost" id="clearBtn">Clear chat</button>
+        </div>
+      </section>
+    </div>
+
+    <div class="footer">Made with ❤️ for language lovers • Language Lasagna 2026</div>
+  </div>
+
+  <script>
+    // ---------- State ----------
+    const state = {
+      language: null,
+      level: null,
+      streak: 0,
+      wordsLearned: 0,
+      points: 0,
+      lastActiveDate: null, // YYYY-MM-DD
+    };
+
+    // ---------- Elements ----------
+    const languageRow = document.getElementById("languageRow");
+    const levelRow = document.getElementById("levelRow");
+    const welcomeText = document.getElementById("welcomeText");
+    const statusBadge = document.getElementById("statusBadge");
+    const modeBadge = document.getElementById("modeBadge");
+
+    const streakVal = document.getElementById("streakVal");
+    const wordsVal = document.getElementById("wordsVal");
+    const pointsVal = document.getElementById("pointsVal");
+
+    const messagesEl = document.getElementById("messages");
+    const inputEl = document.getElementById("input");
+    const sendBtn = document.getElementById("sendBtn");
+    const clearBtn = document.getElementById("clearBtn");
+    const resetBtn = document.getElementById("resetBtn");
+
+    // ---------- Helpers ----------
+    const todayKey = () => new Date().toISOString().slice(0, 10);
+
+    function save() {
+      localStorage.setItem("ll_state", JSON.stringify(state));
+    }
+
+    function load() {
+      try {
+        const raw = localStorage.getItem("ll_state");
+        if (!raw) return;
+        const parsed = JSON.parse(raw);
+        Object.assign(state, parsed);
+      } catch (_) {}
+    }
+
+    function setActiveButton(container, selector, attrName, value) {
+      container.querySelectorAll(selector).forEach(btn => {
+        const match = btn.getAttribute(attrName) === value;
+        btn.classList.toggle("active", match);
+      });
+    }
+
+    function updateBadges() {
+      const parts = [];
+      if (state.language) parts.push(state.language);
+      if (state.level) parts.push(state.level);
+      modeBadge.textContent = parts.length ? parts.join(" • ") : "No mode selected";
+
+      if (!state.language && !state.level) statusBadge.textContent = "Pick a language + level to start";
+      else if (state.language && !state.level) statusBadge.textContent = "Now pick a level";
+      else if (!state.language && state.level) statusBadge.textContent = "Now pick a language";
+      else statusBadge.textContent = "Ready — start chatting!";
+    }
+
+    function updateWelcome() {
+      if (!state.language && !state.level) {
+        welcomeText.textContent = "Welcome! Choose a language to start chatting!";
+        return;
+      }
+      if (state.language && !state.level) {
+        welcomeText.textContent = `Nice — ${state.language}. Now choose a level.`;
+        return;
+      }
+      if (!state.language && state.level) {
+        welcomeText.textContent = `Cool — ${state.level}. Now choose a language.`;
+        return;
+      }
+      welcomeText.textContent = `You’re learning ${state.language} (${state.level}). Send a message to begin!`;
+    }
+
+    function updateStatsUI() {
+      streakVal.textContent = state.streak;
+      wordsVal.textContent = state.wordsLearned;
+      pointsVal.textContent = state.points;
+    }
+
+    function canChat() {
+      return Boolean(state.language && state.level);
+    }
+
+    function appendMessage(role, text) {
+      const wrapper = document.createElement("div");
+      wrapper.className = `msg ${role}`;
+      const meta = document.createElement("div");
+      meta.className = "meta";
+      meta.textContent = role === "me" ? "You" : "Lasagna AI";
+      const body = document.createElement("div");
+      body.textContent = text;
+      wrapper.appendChild(meta);
+      wrapper.appendChild(body);
+      messagesEl.appendChild(wrapper);
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+
+    function clearChatOnly() {
+      messagesEl.innerHTML = "";
+      save();
+    }
+
+    function resetEverything() {
+      localStorage.removeItem("ll_state");
+      messagesEl.innerHTML = "";
+      state.language = null;
+      state.level = null;
+      state.streak = 0;
+      state.wordsLearned = 0;
+      state.points = 0;
+      state.lastActiveDate = null;
+
+      setActiveButton(languageRow, "button.pill[data-language]", "data-language", "__none__");
+      setActiveButton(levelRow, "button.pill[data-level]", "data-level", "__none__");
+      updateBadges();
+      updateWelcome();
+      updateStatsUI();
+      inputEl.value = "";
+    }
+
+    function bumpStreakIfNeeded() {
+      const today = todayKey();
+      if (!state.lastActiveDate) {
+        state.streak = 1;
+        state.lastActiveDate = today;
+        return;
+      }
+      if (state.lastActiveDate === today) return;
+
+      // If yesterday, increment; otherwise restart.
+      const last = new Date(state.lastActiveDate);
+      const now = new Date(today);
+      const diffDays = Math.round((now - last) / (1000 * 60 * 60 * 24));
+      state.streak = (diffDays === 1) ? (state.streak + 1) : 1;
+      state.lastActiveDate = today;
+    }
+
+    function countWords(text) {
+      return (text.trim().match(/\b[\p{L}\p{N}'-]+\b/gu) || []).length;
+    }
+
+    // A tiny "AI" stub so everything works on GitHub Pages without secrets.
+    // Later you can replace this with a real API call (see section below).
+    function generateTutorReply(userText) {
+      const lang = state.language;
+      const level = state.level;
+
+      const prompts = {
+        Beginner: `Let’s keep it simple.`,
+        Intermediate: `Let’s add a bit more detail.`,
+        Advanced: `Let’s go natural and correct subtle mistakes.`
+      };
+
+      const cannedByLanguage = {
+        English: [
+          "Tell me about your day in 2–3 sentences.",
+          "Try using one past-tense verb.",
+          "Ask me a question about food."
+        ],
+        Spanish: [
+          "Escribe 1–2 frases. (Tip: usa “hoy”, “ayer”, “mañana”.)",
+          "Intenta usar un verbo en pasado.",
+          "Hazme una pregunta sobre comida."
+        ],
+        French: [
+          "Écris 1–2 phrases. (Astuce : utilise « aujourd’hui », « hier », « demain ».)",
+          "Essaie d’utiliser un verbe au passé.",
+          "Pose-moi une question sur la nourriture."
+        ],
+        Mandarin: [
+          "写一到两句话。（提示：用“今天/昨天/明天”）",
+          "试着用一个过去时间的表达。",
+          "问我一个关于食物的问题。"
+        ],
+        Arabic: [
+          "اكتب جملة أو جملتين. (نصيحة: استخدم اليوم/أمس/غدًا)",
+          "جرّب استخدام فعل في الماضي.",
+          "اسألني سؤالًا عن الطعام."
+        ],
+        Russian: [
+          "Напиши 1–2 предложения. (Подсказка: сегодня/вчера/завтра)",
+          "Попробуй использовать прошедшее время.",
+          "Задай мне вопрос про еду."
+        ]
+      };
+
+      const list = cannedByLanguage[lang] || cannedByLanguage.English;
+      const suggestion = list[Math.floor(Math.random() * list.length)];
+
+      return `${prompts[level]}\n\nYou said: “${userText}”\n\nNext step (${lang}): ${suggestion}`;
+    }
+
+    async function handleSend() {
+      const text = inputEl.value.trim();
+      if (!text) return;
+
+      if (!canChat()) {
+        appendMessage("ai", "Pick a language AND a level first 😊");
+        return;
+      }
+
+      // stats
+      bumpStreakIfNeeded();
+      state.points += 5;
+      state.wordsLearned += countWords(text);
+
+      appendMessage("me", text);
+      inputEl.value = "";
+
+      // reply
+      const reply = generateTutorReply(text);
+      appendMessage("ai", reply);
+
+      updateStatsUI();
+      save();
+    }
+
+    // ---------- Event wiring (THIS is the “make every button work” part) ----------
+    function wireLanguageButtons() {
+      languageRow.addEventListener("click", (e) => {
+        const btn = e.target.closest("button[data-language]");
+        if (!btn) return;
+        state.language = btn.dataset.language;
+        setActiveButton(languageRow, "button[data-language]", "data-language", state.language);
+        updateBadges();
+        updateWelcome();
+        save();
+      });
+    }
+
+    function wireLevelButtons() {
+      levelRow.addEventListener("click", (e) => {
+        const btn = e.target.closest("button[data-level]");
+        if (!btn) return;
+        state.level = btn.dataset.level;
+        setActiveButton(levelRow, "button[data-level]", "data-level", state.level);
+        updateBadges();
+        updateWelcome();
+        save();
+      });
+    }
+
+    function wireChatButtons() {
+      sendBtn.addEventListener("click", handleSend);
+      clearBtn.addEventListener("click", clearChatOnly);
+      resetBtn.addEventListener("click", resetEverything);
+
+      inputEl.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") handleSend();
+      });
+    }
+
+    // ---------- Init ----------
+    function init() {
+      load();
+
+      // restore selections
+      if (state.language) setActiveButton(languageRow, "button[data-language]", "data-language", state.language);
+      if (state.level) setActiveButton(levelRow, "button[data-level]", "data-level", state.level);
+
+      updateBadges();
+      updateWelcome();
+      updateStatsUI();
+
+      wireLanguageButtons();
+      wireLevelButtons();
+      wireChatButtons();
+
+      // first message
+      if (messagesEl.children.length === 0) {
+        appendMessage("ai", "Hi! Pick a language + level on the left, then send a message 🙂");
+      }
+    }
+
+    init();
+  </script>
 </body>
 </html>
