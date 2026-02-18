@@ -3,56 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Language Lasagna</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #ff7e5f, #feb47b);
-            animation: backgroundAnimation 15s infinite alternate;
-        }
-        @keyframes backgroundAnimation {
-            0% { background-color: #ff7e5f; }
-            100% { background-color: #feb47b; }
-        }
-        .container {
-            text-align: center;
-            color: white;
-            padding: 20px;
-        }
-        .language-selection, .skill-level {
-            margin: 20px;
-        }
-        .mic-button {
-            border: none;
-            border-radius: 50%;
-            background: #fff;
-            padding: 20px;
-            cursor: pointer;
-        }
-    </style>
+    <title>🍝 Language Lasagna - Learn Languages with AI!</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Welcome to Language Lasagna!</h1>
-        <div class="language-selection">
-            <label for="languages">Select your language:</label>
-            <select id="languages">
-                <option value="arabic">Arabic</option>
-                <option value="mandarin">Mandarin</option>
-                <option value="russian">Russian</option>
-            </select>
-        </div>
-        <div class="skill-level">
-            <label for="skill">Select your skill level:</label>
-            <select id="skill">
-                <option value="beginner">Beginner</option>
-                <option value="intermediate">Intermediate</option>
-                <option value="advanced">Advanced</option>
-            </select>
-        </div>
-        <div>
-            <button class="mic-button">🎤</button>
-        </div>
+    <div class="background-animation">
+        <div class="floating-bubble bubble-1"></div>
+        <div class="floating-bubble bubble-2"></div>
+        <div class="floating-bubble bubble-3"></div>
+        <div class="floating-bubble bubble-4"></div>
+        <div class="floating-bubble bubble-5"></div>
     </div>
+
+    <header>
+        <div class="header-content">
+            <h1>🍝 Language Lasagna 🍝</h1>
+            <p>Learn Languages With Your AI Friend! 🤖✨</p>
+        </div>
+    </header>
+
+    <main>
+        <!-- Language Selection -->
+        <section class="language-section card">
+            <h2>🌐 Pick Your Language</h2>
+            <div class="language-grid">
+                <button class="lang-btn" onclick="selectLanguage('english')">
+                    <span class="flag">🇺🇸</span>
+                    <span>English</span>
+                </button>
+                <button class="lang-btn" onclick="selectLanguage('spanish')">
+                    <span class="flag">🇪🇸</span>
+                    <span>Spanish</span>
+                </button>
+                <button class="lang-btn" onclick="selectLanguage('french')">
+                    <span class="flag">🇫🇷</span>
+                    <span>French</span>
+                </button>
+                <button class="lang-btn" onclick="selectLanguage('mandarin')">
+                    <span class="flag">🇨🇳</span>
+                    <span>Mandarin</span>
+                </button>
+                <button class="lang-btn" onclick="selectLanguage('arabic')">
+                    <span class="flag">🇸🇦</span>
+                    <span>Arabic</span>
+                </button>
+                <button class="lang-btn" onclick="selectLanguage('russian')">
+                    <span class="flag">🇷🇺</span>
+                    <span>Russian</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Skill Level Selection -->
+        <section class="level-section card">
+            <h2>📚 Choose Your Level</h2>
+            <div class="level-grid">
+                <button class="level-btn beginner-btn" onclick="selectLevel('beginner')">
+                    🌱 Beginner
+                </button>
+                <button class="level-btn intermediate-btn" onclick="selectLevel('intermediate')">
+                    🌿 Intermediate
+                </button>
+                <button class="level-btn advanced-btn" onclick="selectLevel('advanced')">
+                    🌳 Advanced
+                </button>
+            </div>
+        </section>
+
+        <!-- AI Chat Section -->
+        <section class="chat-section card">
+            <div class="ai-avatar">
+                <div class="avatar-circle">🤖</div>
+                <span class="status-dot"></span>
+            </div>
+            
+            <h2 id="welcomeMessage">Welcome! 👋 Choose a language to start chatting!</h2>
+            
+            <div class="conversation-container" id="chatBox">
+                <!-- Messages will appear here -->
+            </div>
+
+            <!-- Voice Controls -->
+            <div class="voice-controls">
+                <button class="microphone-btn" id="micBtn" onclick="toggleMicrophone()">
+                    <span class="mic-icon">🎤</span>
+                </button>
+                <p class="listening-status" id="listeningStatus"></p>
+            </div>
+
+            <!-- Stats -->
+            <div class="stats-container">
+                <div class="stat">
+                    <span class="stat-icon">✨</span>
+                    <span id="streakCount">0</span>
+                    <span class="stat-label">Streak</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-icon">📝</span>
+                    <span id="wordCount">0</span>
+                    <span class="stat-label">Words Learned</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-icon">⭐</span>
+                    <span id="scoreCount">0</span>
+                    <span class="stat-label">Points</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Made with ❤️ for language lovers • 🍝 Language Lasagna 2026</p>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
